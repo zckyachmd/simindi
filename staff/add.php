@@ -17,26 +17,28 @@
       $username = strip_tags(strtolower(trim($_POST["username"])));
       $password = mysqli_real_escape_string($connect, $_POST["password"]);
       $confirm_password = mysqli_real_escape_string($connect, $_POST["confirm_password"]);
-      $role = $_POST["role"];
+      $role = strip_tags(trim($_POST["role"]));
 
       if ($password == $confirm_password) {
           $check_account = mysqli_query($connect, "SELECT * FROM accounts WHERE username='$username' OR email='$email'");
           $row = mysqli_fetch_assoc($check_account);
 
           if (mysqli_num_rows($check_account) <= 0) {
+              $password = PASSWORD_HASH($password, PASSWORD_DEFAULT);
               $count_account = mysqli_query($connect, "SELECT count(*) AS no_acc FROM accounts ORDER BY id DESC");
               $get_no_account = mysqli_fetch_array($count_account);
               $no_acc = $get_no_account['no_acc'] + 1;
 
               if ($role == "Admin") {
-                  $no_account = "ADM_" . $no_acc;
+                $no_account = "ADM_" . $no_acc;
               } elseif ($role == "Staff") {
                   $no_account = "STF_" . $no_acc;
+              } else {
+                header("Location: $base_url/logout.php");
+                exit();
               }
 
-              $password = PASSWORD_HASH($password, PASSWORD_DEFAULT);
-
-              $query = "INSERT INTO accounts VALUE (NULL, '$no_account', '$name', '$email', '$username', '$password', '$role', NOW())";
+              $query = "INSERT INTO accounts VALUE (NULL, '$no_account', '$name', '$email', '$username', '$password', '$role', NULL, NOW())";
               mysqli_query($connect, $query);
 
               if (mysqli_affected_rows($connect) >= 1) {

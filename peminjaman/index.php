@@ -184,7 +184,7 @@
                   <span class="icon text-dark-50">
                     <i class="fas fa-paper-plane"></i>
                   </span>
-                  <span class="text">Add Film</span>
+                  <span class="text">Add Peminjaman</span>
                 </a>
               </div>
             </div>

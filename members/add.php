@@ -13,7 +13,7 @@
       $tgl_lahir = strip_tags(trim($_POST["tgl_lahir"]));
       $alamat = strip_tags(trim($_POST["alamat"]));
       $no_hp = strip_tags(trim($_POST["no_hp"]));
-      $email = strip_tags(strtolower(trim($_POST["email"])));
+      $email = strip_tags(strtolower(trim($_POST["email"], null)));
       $petugas = $_SESSION["no_account"];
 
       $check_ktp = mysqli_query($connect, "SELECT no_ktp FROM members WHERE no_ktp='$no_ktp'");

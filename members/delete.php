@@ -18,12 +18,12 @@
           mysqli_query($connect, "DELETE FROM members WHERE id = '$id'");
 
           if (mysqli_affected_rows($connect) > 0) {
-              $get_result = $row["nama_lengkap"] . " berhasil di hapus akun! [" . $row['no_member'] . "]";
+              $get_result = "Data " . $row["nama_lengkap"] . " berhasil di hapus! [" . $row['no_member'] . "]";
               $result = base64_encode($get_result);
               header("Location: index.php?result=$result");
               exit;
           } else {
-              $get_error = $row["nama_lengkap"] . " gagal di hapus akun! [" . $row['no_member'] . "]";
+              $get_error ="Data " . $row["nama_lengkap"] . " gagal di hapus! [" . $row['no_member'] . "]";
               $error = base64_encode($get_error);
               header("Location: index.php?error=$error");
               exit;
